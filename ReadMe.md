@@ -13,7 +13,7 @@
   deploy directory for executables.
 
   - **OCM/**
-  environment setting, configurations, and data for testing each problem.
+    environment setting, configurations, and data for testing each problem.
 
     - **Solution/**
     save running logs and output files of this problem.
@@ -39,22 +39,33 @@
 
 ## Build Instruction
 
-### Windows
+### Linux
 
-- Install Protobuf.
-  - Set environment variable `PROTOBUF_HOME` to Protobuf installation path (where there are `bin/`, `lib/`, `include/` directories).
-  - Append `%PROTOBUF_HOME%` to the envrionment variable `Path`.
-  - Run `/Plugin/Protobuf/0.Install.*.bat`.
-- Install Zlib.
-  - Set environment variable `ZLIB_HOME` to Zlib installation path (where there are `bin/`, `lib/`, `include/` directories).
-  - Append `%ZLIB_HOME%` to the envrionment variable `Path`.
-- Install Gurobi.
-  - Set environment variable `GUROBI_HOME` to Gurobi installation path (where there are `bin/`, `lib/`, `include/` directories).
-    - Already done by the Gurobi installer.
-  - Append `%GUROBI_HOME%` to the envrionment variable `Path`.
-    - Already done by the Gurobi installer.
-- Install core API.
-  - Add all files under `/GOAL/` into your project.
-  - Add the path where you place `/GOAL/` to your project include directory.
-  - Include the `/GOAL/Optimization/*/Problem.h` in your code.
-  - Refer to `/Test/Test*.cpp` for sample usage.
+The solver is developped with g++ v11.4.0,  cmake v2.8 in the Linux system.
+
+To use it, you only need the C++ standard library and a g++ compiler.
+
+To build, use:
+
+```
+cd Build/Linux
+mkdir build
+cd build
+cmake ../
+make
+```
+
+To run, use:
+
+```
+./Build/Linux/build/OCM
+```
+
+The problem is piped in via STDIN.
+
+The solution is emitted via STDOUT.
+
+## Contact
+
+Kong Qi(k969774646@gmail.com)
+

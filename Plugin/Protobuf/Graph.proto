@@ -1,0 +1,62 @@
+// # 概述
+// 使用 Google 的 Protocol Buffer (简称 protobuf) 定义.
+// 拓扑图数据格式.
+// 所有节点与边的 ID 均分别为从 0 开始的连续正整数.
+
+syntax = "proto3";
+
+package cn.hust.goal.pb.Graph;
+
+// option cc_enable_arenas = true;
+
+
+// 无权重拓扑图的邻接表信息.
+message AdjList {
+  // 邻接表. `nodes[src].to[i]` 为节点 `src` 的第 `i` 个相邻节点的 ID.
+  // 对于无向图或对称有向图, 为节省空间, 仅存储下三角矩阵, 即 `i < src`.
+  repeated AdjNodes nodes = 1;
+
+  message AdjNodes { // 给定节点的邻接节点信息列表.
+    repeated int32 to = 1; // `to[i]` 为给定节点的第 `i` 个相邻节点的 ID.
+  }
+}
+
+// 边带权重拓扑图的邻接表信息.
+message WeightedAdjList {
+  // 邻接表. `nodes[src].to[i]` 为节点 `src` 到其第 `i` 个相邻节点的有向边的信息.
+  // 对于无向图或对称有向图, 为节省空间, 仅存储下三角矩阵, 即 `i < src`.
+  repeated AdjNodes nodes = 1;
+  
+  message AdjNodes { // 给定节点的邻接节点信息列表.
+    repeated AdjNode to = 1; // `to[i]` 为给定节点到其第 `i` 个相邻节点的有向边信息.
+  }
+  
+  message AdjNode { // 邻接节点信息.
+    int32 dst = 1; // 有向边终点.
+    int32 weight = 2; // 有向边权重.
+  }
+}
+
+message AdjMat {
+  repeated AttrList weightMat = 2; // 邻接矩阵. `weightMat[src].to[dst]` 为节点 `src` 到节点 `dst` 的有向边的权重.
+
+  message AttrList { // 给定节点到所有其他节点的有向边的属性列表.
+    repeated int32 to = 1; // `to[n]` 为给定节点到节点 `n` 的有向边的属性.
+  }
+}
+
+// 几何图信息.
+message GeoGraph {
+  repeated Coord coords = 1; // 直角坐标系中的节点坐标列表.
+
+  message Coord { // 直角坐标系坐标.
+    repeated int32 x = 1; // `x[i]` 为第 `i + 1` 维坐标.
+  }
+}
+
+
+// 子图信息.
+message Tour { // 路径或回路. 在回路有指定的起点 (也即终点) 的情况下, 建议将其放在 `nodes` 列表末尾.
+  repeated int32 nodes = 1; // 路径途经节点有序列表. `nodes[i]` 表示路径上第 `i` 个节点的 ID.
+  int32 weight = 2; // 路径的总权重.
+}

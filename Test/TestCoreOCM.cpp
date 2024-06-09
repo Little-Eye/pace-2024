@@ -83,8 +83,9 @@ bool solve() {
 template<typename Algorithm = Alg>
 bool solve(Str inputPath, Str outputPath) {
 	typename Algorithm::Environment env;
-	env.msTimeout = 50 * 60 * 1000;
+	env.msTimeout = 5 * 60 * 1000;
 	env.maxThreadNum = 1;
+	env.randSeed = Random::generateSeed();
 
 	Input input;
 	if (!input.load(inputPath)) { return false; }
@@ -161,8 +162,8 @@ void testAll(const Str& instanceListPath, const Str& baselinePath, const Str& lo
 
 	Alg::Configuration testCfg; // EXT[szx][3]: load configuration from file.
 
-	int benchmarkThreadNum = thread::hardware_concurrency()/4;
-	//int benchmarkThreadNum = 1;
+	//int benchmarkThreadNum = thread::hardware_concurrency()/4;
+	int benchmarkThreadNum = 1;
 	atomic<int> ai(0);
 	Vec<thread> ts; ts.reserve(benchmarkThreadNum);
 	auto run = [&]() {

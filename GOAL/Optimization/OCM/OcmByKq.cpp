@@ -626,7 +626,6 @@ namespace goal {
 			globalCM.resize(nodeNum);
 			for (auto& globalCM_list : globalCM) { globalCM_list.resize(nodeNum, 0); }
 			Vec<Int> dpNodeNum(pInput->nodeNum1);
-			
 			for (NodeId nodeId1 = 0; nodeId1 < nodeNum - 1; ++nodeId1) {
 				if ((pInput->inNodes[nodeId1]).empty()) { continue; }
 
@@ -639,20 +638,6 @@ namespace goal {
 					for (auto nodeId2_inNode : (pInput->inNodes)[nodeId2]) {
 						if (nodeId2_inNode.inNodeId != 0) { globalCM[nodeId2][nodeId1] += (dpNodeNum[nodeId2_inNode.inNodeId - 1] * nodeId2_inNode.num); }
 						globalCM[nodeId1][nodeId2] += ((dpNodeNum[(pInput->nodeNum1) - 1] - dpNodeNum[nodeId2_inNode.inNodeId]) * nodeId2_inNode.num);
-					}
-				}
-			}
-
-			//Switch to relative CM
-			for (NodeId nodeId1 = 0; nodeId1 < nodeNum - 1; ++nodeId1) {
-				for (NodeId nodeId2 = nodeId1 + 1; nodeId2 < nodeNum; ++nodeId2) {
-					if (globalCM[nodeId1][nodeId2] <= globalCM[nodeId2][nodeId1]) {
-						globalCM[nodeId2][nodeId1] -= globalCM[nodeId1][nodeId2];
-						globalCM[nodeId1][nodeId2] = 0;
-					}
-					else {
-						globalCM[nodeId1][nodeId2] -= globalCM[nodeId2][nodeId1];
-						globalCM[nodeId2][nodeId1] = 0;
 					}
 				}
 			}

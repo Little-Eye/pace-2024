@@ -67,9 +67,10 @@ void Input::simplifyByNeighbor() {
 			simplifyNodeIdSets[local_matchNodeId].emplace_back(global_unsimpNodeId);
 		}
 	}
+
 	for (NodeId localNodeId = 0; localNodeId < local_nodeNum; ++localNodeId) {
 		NodeId globalNodeId = simplifyNodeId2GlobalNodeId[localNodeId];
-		inNodes[localNodeId] = move(inNodes[globalNodeId]);
+		inNodes[localNodeId] = inNodes[globalNodeId];
 		for (auto& inNode : inNodes[localNodeId]) { inNode.num = simplifyNodeIdSets[localNodeId].size(); }
 	}
 

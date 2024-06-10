@@ -1,4 +1,4 @@
-# GOAL
+# OCM: PACE2024 HEURISTIC TRACK
 
 ## Directory Structure
 
@@ -64,6 +64,10 @@ To run, use:
 The problem is piped in via STDIN.
 
 The solution is emitted via STDOUT.
+
+## Student Submission
+
+I am a master from Huazhong University of Science and Technology, and my student ID is M202373897.
 
 ## Contact
 

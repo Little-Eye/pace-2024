@@ -73,3 +73,7 @@ I am a master from Huazhong University of Science and Technology, and my student
 
 Kong Qi(k969774646@gmail.com)
 
+### DOI
+
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.12466375.svg)](https://doi.org/10.5281/zenodo.12466375)
+
